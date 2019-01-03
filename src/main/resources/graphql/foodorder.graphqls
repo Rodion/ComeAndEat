@@ -1,0 +1,61 @@
+type Addition {
+	id: ID!
+	menuItem: MenuItem
+	additionName: String
+	price: String
+}
+
+type FoodOrder {
+	id: ID!
+	customerName: String
+	orderDate: String
+	foodProvider: FoodProvider
+}
+
+type FoodProvider {
+	id: ID!
+	foodProviderName: String
+	address: String
+	contactName: String
+	contactNumber: String
+	workingHours: String
+	deliveryPrice: String
+}
+
+type MenuItem {
+	id: ID!
+  	foodProvider: FoodProvider
+	description: String
+	price: String;
+  	
+}
+
+type OrderMenuItem {
+	id: ID!
+	order: FoodOrder
+	foodProvider: FoodProvider
+	menuItem: MenuItem 
+	addition: Addition
+}
+
+type Reviews {
+    id: ID!
+	foodProvider: FoodProvider 
+	rating: Int
+	reviewText: String
+}
+
+# The Root Query for the application
+type Query {
+    findMenuByFoodProvider(foodProviderID: String!) : [MenuItem]
+	findAllAdditionsOfFoodProvider(foodProviderID: String!) : [Addition]
+	findAllFoodProvidersByAddress(address: String) : [FoodProvider]
+	filterFoodProvidersByReview(rating: Int) : [Reviews]
+}
+
+# The Root Mutation for the application
+type Mutation {
+    newMenuItem(foodproviderid: String!, description: String!, price: String!) : MenuItem
+    newFoodOrder(foodProviderName: String) : FoodOrder
+    newFoodProvider(foodProviderName: String) : FoodProvider
+}
