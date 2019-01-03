@@ -31,11 +31,13 @@ public class Mutation implements GraphQLMutationResolver {
 	}
 
 	public MenuItem newMenuItem(String foodProviderID, String description, String price) {
-		MenuItem menuItem = new MenuItem();
+
 		Optional<FoodProvider> optional = foodProviderRepository.findById(foodProviderID);
 		if (Optional.empty().equals(optional)) {
 			//TODO Exception
 		}
+
+		MenuItem menuItem = new MenuItem();
 		menuItem.setFoodProvider(optional.get());
 		menuItem.setDescription(description);
 		menuItem.setPrice(Money.parse(price));
@@ -58,7 +60,7 @@ public class Mutation implements GraphQLMutationResolver {
 		foodProvider.setAddress("asdasd");
 		foodProvider.setContactName("asdasd");
 		foodProvider.setContactNumber("asdasd");
-		foodProvider.setDeliveryPrice(Money.parse("12USD"));
+		foodProvider.setDeliveryPrice(Money.parse("USD 5"));
 		foodProvider.setFoodProviderName(foodProviderName);
 		foodProvider.setWorkingHours("asd");
 		foodProviderRepository.save(foodProvider);

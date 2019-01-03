@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,11 +32,13 @@ public class MenuItem {
 	private @Getter @Setter String id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "food_provider_id")
 	private @Getter @Setter FoodProvider foodProvider;
 	private @Getter @Setter String description;
+	@Column(columnDefinition = "BLOB")
 	private @Getter @Setter Money price;
-	
-	@OneToMany(mappedBy="id")
-    private List<Addition> additions;
+
+	@OneToMany(mappedBy = "menuItem")
+	private List<Addition> additions;
 
 }

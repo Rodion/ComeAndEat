@@ -30,7 +30,9 @@ public class Addition {
 	private @Getter @Setter String id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "menu_item_id")
 	private @Getter @Setter MenuItem menuItem;
 	private @Getter @Setter String additionName;
+	@Column(columnDefinition = "BLOB")
 	private @Getter @Setter Money price;
 }
