@@ -1,18 +1,6 @@
 package com.comeandeat;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import com.comeandeat.graphql.Mutation;
-import com.comeandeat.graphql.Query;
-import com.comeandeat.repository.AdditionRepository;
-import com.comeandeat.repository.FoodOrderMenuItemRepository;
-import com.comeandeat.repository.FoodOrderRepository;
-import com.comeandeat.repository.FoodProviderRepository;
-import com.comeandeat.repository.MenuItemRepository;
-import com.comeandeat.repository.ReviewsRepository;
-
-@Configuration
+//@Configuration
 public class GraphqlConfiguration {
 
 	// @Bean
@@ -39,39 +27,15 @@ public class GraphqlConfiguration {
 	// }
 	// };
 	// }
-	//
-	// @Bean
-	// public BookFoodOrderResolver bookResolver(FoodProviderRepository
-	// foodProviderRepository) {
-	// return new BookFoodOrderResolver(foodProviderRepository);
-	// }
+	
+//	public Query query() {
+//		Query query = new Query();
+//		return query;
+//	}
+//
+//	public Mutation mutation() {
+//		Mutation mutation = new Mutation();
+//		return mutation;
+//	}
 
-	@Bean
-	public Query query(AdditionRepository additionRepository, FoodOrderMenuItemRepository foodOrderMenuItemRepository,
-			FoodOrderRepository foodOrderRepository, FoodProviderRepository foodProviderRepository,
-			MenuItemRepository menuItemRepository, ReviewsRepository reviewsRepository) {
-		Query query = new Query();
-		query.setAdditionRepository(additionRepository);
-		query.setFoodOrderMenuItemRepository(foodOrderMenuItemRepository);
-		query.setFoodOrderRepository(foodOrderRepository);
-		query.setFoodProviderRepository(foodProviderRepository);
-		query.setMenuItemRepository(menuItemRepository);
-		query.setReviewsRepository(reviewsRepository);
-		return query;
-	}
-
-	@Bean
-	public Mutation mutation(AdditionRepository additionRepository, FoodOrderMenuItemRepository foodOrderMenuItemRepository,
-			FoodOrderRepository foodOrderRepository, FoodProviderRepository foodProviderRepository,
-			MenuItemRepository menuItemRepository, ReviewsRepository reviewsRepository) {
-		Mutation mutation = new Mutation();
-		mutation.setAdditionRepository(additionRepository);
-		mutation.setFoodOrderMenuItemRepository(foodOrderMenuItemRepository);
-		mutation.setFoodOrderRepository(foodOrderRepository);
-		mutation.setFoodProviderRepository(foodProviderRepository);
-		mutation.setMenuItemRepository(menuItemRepository);
-		mutation.setReviewsRepository(reviewsRepository);
-
-		return mutation;
-	}
 }

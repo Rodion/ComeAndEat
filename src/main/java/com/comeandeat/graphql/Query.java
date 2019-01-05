@@ -2,64 +2,67 @@ package com.comeandeat.graphql;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.comeandeat.entity.Addition;
 import com.comeandeat.entity.FoodProvider;
 import com.comeandeat.entity.MenuItem;
 import com.comeandeat.entity.Reviews;
-import com.comeandeat.repository.AdditionRepository;
-import com.comeandeat.repository.FoodOrderMenuItemRepository;
-import com.comeandeat.repository.FoodOrderRepository;
-import com.comeandeat.repository.FoodProviderRepository;
-import com.comeandeat.repository.MenuItemRepository;
-import com.comeandeat.repository.ReviewsRepository;
+import com.comeandeat.service.AdditionService;
+import com.comeandeat.service.FoodOrderMenuItemService;
+import com.comeandeat.service.FoodOrderService;
+import com.comeandeat.service.FoodProviderService;
+import com.comeandeat.service.MenuItemService;
+import com.comeandeat.service.ReviewsService;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
-import lombok.Setter;
-
+@Component
 public class Query implements GraphQLQueryResolver {
 
-	@Setter
-	private MenuItemRepository menuItemRepository;
-	@Setter
-	private AdditionRepository additionRepository;
-	@Setter
-	private FoodOrderMenuItemRepository foodOrderMenuItemRepository;
-	@Setter
-	private FoodOrderRepository foodOrderRepository;
-	@Setter
-	private FoodProviderRepository foodProviderRepository;
-	@Setter
-	private ReviewsRepository reviewsRepository;
+	@Autowired
+	private MenuItemService menuItemService;
+	@Autowired
+	private AdditionService additionService;
+	@Autowired
+	private FoodOrderMenuItemService foodOrderMenuItemService;
+	@Autowired
+	private FoodOrderService foodOrderService;
+	@Autowired
+	private FoodProviderService foodProviderService;
+	@Autowired
+	private ReviewsService reviewsService;
 
+	@Autowired
 	public Query() {
 	}
 
 	// Expose all the menus of a Food Provider
 	public Iterable<MenuItem> findMenuByFoodProvider(String foodProviderID) {
-		Optional<FoodProvider> optional = foodProviderRepository.findById(foodProviderID);
+		Optional<FoodProvider> optional = foodProviderService.findById(foodProviderID);
 		if (Optional.empty().equals(optional)) {
 			// TODO Exception
 		}
-		return menuItemRepository.findMenuByFoodProvider(optional.get());
+		return menuItemService.findMenuByFoodProvider(optional.get());
 	}
 
 	// Expose all the available additions of a Food Provider
 	public Iterable<Addition> findAllAdditionsOfFoodProvider(String foodProviderID) {
-		Optional<FoodProvider> optional = foodProviderRepository.findById(foodProviderID);
+		Optional<FoodProvider> optional = foodProviderService.findById(foodProviderID);
 		if (Optional.empty().equals(optional)) {
 			// TODO Exception
 		}
-		return foodProviderRepository.findAdditionsById(optional.get());
+		return foodProviderService.findAdditionsById(optional.get());
 	}
 
 	// List all Food Providers for a specific address.
 	public Iterable<FoodProvider> findAllFoodProvidersByAddress(String address) {
-		return foodProviderRepository.findAllByAddress(address);
+		return foodProviderService.findAllByAddress(address);
 	}
 
 	// Filter Food Providers by Review rating
 	public Iterable<Reviews> filterFoodProvidersByReview(int rating) {
-		return reviewsRepository.findAllByRating(rating);
+		return reviewsService.findAllByRating(rating);
 	}
 
 }

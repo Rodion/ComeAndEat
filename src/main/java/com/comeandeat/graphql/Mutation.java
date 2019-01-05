@@ -4,44 +4,52 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.javamoney.moneta.Money;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.comeandeat.entity.FoodOrder;
 import com.comeandeat.entity.FoodProvider;
 import com.comeandeat.entity.MenuItem;
-import com.comeandeat.repository.AdditionRepository;
-import com.comeandeat.repository.FoodOrderMenuItemRepository;
-import com.comeandeat.repository.FoodOrderRepository;
-import com.comeandeat.repository.FoodProviderRepository;
-import com.comeandeat.repository.MenuItemRepository;
-import com.comeandeat.repository.ReviewsRepository;
+import com.comeandeat.service.AdditionService;
+import com.comeandeat.service.FoodOrderMenuItemService;
+import com.comeandeat.service.FoodOrderService;
+import com.comeandeat.service.FoodProviderService;
+import com.comeandeat.service.MenuItemService;
+import com.comeandeat.service.ReviewsService;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 
-import lombok.Setter;
-
+@Component
 public class Mutation implements GraphQLMutationResolver {
 
-	@Setter private MenuItemRepository menuItemRepository;
-	@Setter private AdditionRepository additionRepository;
-	@Setter private FoodOrderMenuItemRepository foodOrderMenuItemRepository;
-	@Setter private FoodOrderRepository foodOrderRepository;
-	@Setter private FoodProviderRepository foodProviderRepository;
-	@Setter private ReviewsRepository reviewsRepository;
+	@Autowired
+	private MenuItemService menuItemService;
+	@Autowired
+	private AdditionService additionService;
+	@Autowired
+	private FoodOrderMenuItemService foodOrderMenuItemService;
+	@Autowired
+	private FoodOrderService foodOrderService;
+	@Autowired
+	private FoodProviderService foodProviderService;
+	@Autowired
+	private ReviewsService reviewsService;
 
+	@Autowired
 	public Mutation() {
 	}
 
 	public MenuItem newMenuItem(String foodProviderID, String description, String price) {
 
-		Optional<FoodProvider> optional = foodProviderRepository.findById(foodProviderID);
+		Optional<FoodProvider> optional = foodProviderService.findById(foodProviderID);
 		if (Optional.empty().equals(optional)) {
-			//TODO Exception
+			// TODO Exception
 		}
 
 		MenuItem menuItem = new MenuItem();
 		menuItem.setFoodProvider(optional.get());
 		menuItem.setDescription(description);
 		menuItem.setPrice(Money.parse(price));
-		menuItemRepository.save(menuItem);
+		menuItemService.save(menuItem);
 		return menuItem;
 	}
 
@@ -50,21 +58,15 @@ public class Mutation implements GraphQLMutationResolver {
 		order.setCustomerName(foodProviderName);
 		Date date = new Date();
 		order.setOrderDate(date);
-		foodOrderRepository.save(order);
+		foodOrderService.save(order);
 
 		return order;
 	}
-	
-	public FoodProvider newFoodProvider(String foodProviderName) {
-		FoodProvider foodProvider = new FoodProvider();
-		foodProvider.setAddress("asdasd");
-		foodProvider.setContactName("asdasd");
-		foodProvider.setContactNumber("asdasd");
-		foodProvider.setDeliveryPrice(Money.parse("USD 5"));
-		foodProvider.setFoodProviderName(foodProviderName);
-		foodProvider.setWorkingHours("asd");
-		foodProviderRepository.save(foodProvider);
-		return foodProvider;
+
+	public FoodProvider newFoodProvider(String foodProviderName, String address, String contactName,
+			String contactNumber, String deliveryPrice, String workingHours) {
+		return foodProviderService.newFoodProvider(foodProviderName, address, contactName, contactNumber, deliveryPrice,
+				workingHours);
 	}
-	
+
 }

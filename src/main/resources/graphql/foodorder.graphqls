@@ -57,5 +57,5 @@ type Query {
 type Mutation {
     newMenuItem(foodproviderid: String!, description: String!, price: String!) : MenuItem
     newFoodOrder(foodProviderName: String) : FoodOrder
-    newFoodProvider(foodProviderName: String) : FoodProvider
+    newFoodProvider(foodProviderName: String, address: String, contactName: String, contactNumber: String, deliveryPrice: String, workingHours: String) : FoodProvider
 }
