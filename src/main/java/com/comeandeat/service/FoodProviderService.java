@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.comeandeat.entity.Addition;
 import com.comeandeat.entity.FoodProvider;
+import com.comeandeat.entity.MenuItem;
+import com.comeandeat.repository.AdditionRepository;
 import com.comeandeat.repository.FoodProviderRepository;
 
 @Service
@@ -16,6 +18,10 @@ public class FoodProviderService {
 	@Autowired
 	private FoodProviderRepository foodProviderRepository;
 
+//	public Iterable<MenuItem> findMenuItemsByFoodProvider(FoodProvider foodProvider) {
+//		return foodProviderRepository.findMenuItemsById(foodProvider);
+//	}
+	
 	public Iterable<FoodProvider> findAllByAddress(String address) {
 		return foodProviderRepository.findAllByAddress(address);
 	}
@@ -23,11 +29,7 @@ public class FoodProviderService {
 	public Optional<FoodProvider> findById(String id){
 		return foodProviderRepository.findById(id);
 	}
-
-	public Iterable<Addition> findAdditionsById(FoodProvider foodProvider) {
-		return foodProviderRepository.findAdditionsById(foodProvider);
-	}
-
+	
 	public FoodProvider newFoodProvider(String foodProviderName, String address, String contactName,
 			String contactNumber, String deliveryPrice, String workingHours) {
 		FoodProvider foodProvider = new FoodProvider();
@@ -49,6 +51,10 @@ public class FoodProviderService {
 	
 	public FoodProvider save(FoodProvider foodProvider) {
 		return foodProviderRepository.save(foodProvider);
+	}
+	
+	public void delete(FoodProvider foodProvider) {
+		foodProviderRepository.delete(foodProvider);
 	}
 
 }

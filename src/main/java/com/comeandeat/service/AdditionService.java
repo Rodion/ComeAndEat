@@ -24,4 +24,8 @@ public class AdditionService {
 		return additionRepository.save(addition);
 	}
 
+	public void delete(Addition addition) {
+		additionRepository.delete(addition);
+	}
+
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.comeandeat.entity.Addition;
 import com.comeandeat.entity.OrderMenuItem;
 import com.comeandeat.repository.FoodOrderMenuItemRepository;
 
@@ -21,6 +20,10 @@ public class FoodOrderMenuItemService {
 
 	public OrderMenuItem save(OrderMenuItem orderMenuItem) {
 		return foodOrderMenuItemRepository.save(orderMenuItem);
+	}
+
+	public void delete(OrderMenuItem orderMenuItem) {
+		foodOrderMenuItemRepository.delete(orderMenuItem);
 	}
 
 }

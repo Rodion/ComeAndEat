@@ -9,6 +9,5 @@ import com.comeandeat.entity.FoodProvider;
 // CRUD refers Create, Read, Update, Delete
 
 public interface AdditionRepository extends CrudRepository<Addition, String> {
-
 	
 }

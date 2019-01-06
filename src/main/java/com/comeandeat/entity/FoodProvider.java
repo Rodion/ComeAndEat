@@ -1,9 +1,13 @@
 package com.comeandeat.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.javamoney.moneta.Money;
@@ -32,7 +36,8 @@ public class FoodProvider {
 	@Column(columnDefinition = "BLOB")
 	private @Getter @Setter Money deliveryPrice;
 
-	// OneToMany(mappedBy = "id")
-	// private List<MenuItem> menuItems;
+	@OneToMany
+	@JoinColumn(name = "food_provider_id")
+	private List<MenuItem> menuItemsList;
 
 }

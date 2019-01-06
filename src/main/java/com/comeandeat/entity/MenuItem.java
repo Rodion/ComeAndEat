@@ -2,9 +2,11 @@ package com.comeandeat.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,16 +31,17 @@ public class MenuItem {
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", updatable = false, nullable = false)
-	private @Getter @Setter String id;
+	private @Getter String id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "food_provider_id")
 	private @Getter @Setter FoodProvider foodProvider;
 	private @Getter @Setter String description;
 	@Column(columnDefinition = "BLOB")
 	private @Getter @Setter Money price;
 
-	@OneToMany(mappedBy = "menuItem")
-	private List<Addition> additions;
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "menu_item_id", foreignKey = @ForeignKey(name = "AdditionsForMenuItem"))
+	private @Getter @Setter List<Addition> additionsList;
 
 }

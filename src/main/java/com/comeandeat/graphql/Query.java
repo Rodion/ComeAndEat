@@ -52,7 +52,7 @@ public class Query implements GraphQLQueryResolver {
 		if (Optional.empty().equals(optional)) {
 			// TODO Exception
 		}
-		return foodProviderService.findAdditionsById(optional.get());
+		return menuItemService.findAdditionsByFoodProvider(optional.get());
 	}
 
 	// List all Food Providers for a specific address.

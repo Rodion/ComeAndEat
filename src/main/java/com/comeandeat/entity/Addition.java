@@ -2,10 +2,8 @@ package com.comeandeat.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -29,7 +27,7 @@ public class Addition {
 	@Column(name = "id", updatable = false, nullable = false)
 	private @Getter @Setter String id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "menu_item_id")
 	private @Getter @Setter MenuItem menuItem;
 	private @Getter @Setter String additionName;
