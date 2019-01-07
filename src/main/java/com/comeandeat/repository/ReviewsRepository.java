@@ -14,6 +14,6 @@ public interface ReviewsRepository extends CrudRepository<Reviews, String> {
 
 	public Iterable<Reviews> findAllByRating(int rating);
 
-	@Query("SELECT foodProvider, avg(u.rating) from Reviews u group by foodProvider  order by rating")
+	@Query("SELECT foodProvider, avg(u.rating) from Reviews u group by food_provider_id  order by rating")
 	public List<Reviews> sortFoodProvidersByAverageRating();
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.comeandeat.entity.FoodOrder;
 import com.comeandeat.entity.FoodProvider;
 import com.comeandeat.entity.MenuItem;
+import com.comeandeat.entity.Reviews;
 import com.comeandeat.service.AdditionService;
 import com.comeandeat.service.FoodOrderMenuItemService;
 import com.comeandeat.service.FoodOrderService;
@@ -38,24 +39,27 @@ public class Mutation implements GraphQLMutationResolver {
 	public Mutation() {
 	}
 
+	public FoodProvider newFoodProvider(String foodProviderName, String address, String contactName,
+			String contactNumber, String deliveryPrice, String workingHours) {
+		return foodProviderService.newFoodProvider(foodProviderName, address, contactName, contactNumber, deliveryPrice,
+				workingHours);
+	}
+
 	public MenuItem newMenuItem(String foodProviderID, String description, String price) {
-
-		Optional<FoodProvider> optional = foodProviderService.findById(foodProviderID);
-		if (Optional.empty().equals(optional)) {
-			// TODO Exception
-		}
-
+		Optional<FoodProvider> foodProvider = findFoodProviderByID(foodProviderID);
 		MenuItem menuItem = new MenuItem();
-		menuItem.setFoodProvider(optional.get());
+		menuItem.setFoodProvider(foodProvider.get());
 		menuItem.setDescription(description);
 		menuItem.setPrice(Money.parse(price));
 		menuItemService.save(menuItem);
 		return menuItem;
 	}
 
-	public FoodOrder newFoodOrder(String foodProviderName) {
+	public FoodOrder newFoodOrder(String foodProviderID, String customerName) {
 		FoodOrder order = new FoodOrder();
-		order.setCustomerName(foodProviderName);
+		Optional<FoodProvider> foodProvider = findFoodProviderByID(foodProviderID);
+		order.setFoodProvider(foodProvider.get());
+		order.setCustomerName(customerName);
 		Date date = new Date();
 		order.setOrderDate(date);
 		foodOrderService.save(order);
@@ -63,10 +67,23 @@ public class Mutation implements GraphQLMutationResolver {
 		return order;
 	}
 
-	public FoodProvider newFoodProvider(String foodProviderName, String address, String contactName,
-			String contactNumber, String deliveryPrice, String workingHours) {
-		return foodProviderService.newFoodProvider(foodProviderName, address, contactName, contactNumber, deliveryPrice,
-				workingHours);
+	public Reviews newReview(String foodProviderID, String reviewText, int rating) {
+		Reviews reviews = new Reviews();
+		Optional<FoodProvider> foodProvider = findFoodProviderByID(foodProviderID);
+		reviews.setFoodProvider(foodProvider.get());
+		reviews.setReviewText(reviewText);
+		reviews.setRating(rating);
+		reviewsService.save(reviews);
+
+		return reviews;
+	}
+
+	private Optional<FoodProvider> findFoodProviderByID(String foodProviderID) {
+		Optional<FoodProvider> optional = foodProviderService.findById(foodProviderID);
+		if (Optional.empty().equals(optional)) {
+			// TODO Exception
+		}
+		return optional;
 	}
 
 }

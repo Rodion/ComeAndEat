@@ -55,7 +55,8 @@ type Query {
 
 # The Root Mutation for the application
 type Mutation {
-    newMenuItem(foodproviderid: String!, description: String!, price: String!) : MenuItem
-    newFoodOrder(foodProviderName: String) : FoodOrder
     newFoodProvider(foodProviderName: String, address: String, contactName: String, contactNumber: String, deliveryPrice: String, workingHours: String) : FoodProvider
+    newMenuItem(foodproviderid: String!, description: String!, price: String!) : MenuItem
+    newFoodOrder(foodproviderid: String, customerName: String) : FoodOrder
+	newReview(foodproviderid: String!, reviewText: String!,rating: Int) : Reviews
 }

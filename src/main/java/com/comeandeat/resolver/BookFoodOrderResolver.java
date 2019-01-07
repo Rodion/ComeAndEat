@@ -13,8 +13,4 @@ public class BookFoodOrderResolver implements GraphQLResolver<Book> {
 		this.foodProviderRepository = foodProviderRepository;
 	}
 
-	/*
-	 * public List<FoodOrder> getOrders(FoodOrder foodOrder) { return
-	 * FluentIterable.from(foodProviderRepository.findAll()).toList(); }
-	 */
 }

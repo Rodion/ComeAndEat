@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.Builder.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,7 @@ public class FoodOrder {
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", updatable = false, nullable = false)
-	private @Getter @Setter String id;
+	private @Getter String id;
 	private @Getter @Setter String customerName;
 	private @Getter @Setter Date orderDate = new Date();
 	@ManyToOne(fetch = FetchType.LAZY)

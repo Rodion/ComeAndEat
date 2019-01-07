@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.comeandeat.entity.Addition;
 import com.comeandeat.entity.FoodProvider;
@@ -33,7 +32,7 @@ public class MenuItemService {
 		ArrayList<Addition> retVal = new ArrayList<Addition>();
 		Iterable<MenuItem> menuItems = menuItemRepository.findAllByFoodProvider(foodProvider);
 		for (MenuItem menuItem : menuItems) {
-			if (menuItem.getAdditionsList()!=null && menuItem.getAdditionsList().size()>0) {
+			if (menuItem.getAdditionsList() != null && menuItem.getAdditionsList().size() > 0) {
 				retVal.addAll(menuItem.getAdditionsList());
 			}
 		}

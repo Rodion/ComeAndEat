@@ -25,7 +25,7 @@ public class Addition {
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", updatable = false, nullable = false)
-	private @Getter @Setter String id;
+	private @Getter String id;
 
 	@ManyToOne
 	@JoinColumn(name = "menu_item_id")

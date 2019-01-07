@@ -20,13 +20,10 @@ import lombok.Setter;
 public class Reviews {
 	@Id
 	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(
-		name = "UUID",
-		strategy = "org.hibernate.id.UUIDGenerator"
-	)
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", updatable = false, nullable = false)
-	private @Getter @Setter String id;
-	
+	private @Getter String id;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private @Getter @Setter FoodProvider foodProvider;
 	private @Getter @Setter int rating;

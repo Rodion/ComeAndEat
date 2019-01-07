@@ -27,7 +27,7 @@ public class FoodProvider {
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id", updatable = false, nullable = false)
-	private @Getter @Setter String id;
+	private @Getter String id;
 	private @Getter @Setter String foodProviderName;
 	private @Getter @Setter String address; // (for the purpose of this exercise, a city name only)
 	private @Getter @Setter String contactName;

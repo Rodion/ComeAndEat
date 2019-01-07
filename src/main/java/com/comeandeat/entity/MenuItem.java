@@ -40,7 +40,7 @@ public class MenuItem {
 	@Column(columnDefinition = "BLOB")
 	private @Getter @Setter Money price;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "menu_item_id", foreignKey = @ForeignKey(name = "AdditionsForMenuItem"))
 	private @Getter @Setter List<Addition> additionsList;
 
